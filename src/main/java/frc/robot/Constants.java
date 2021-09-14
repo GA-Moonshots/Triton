@@ -18,4 +18,5 @@ public final class Constants {
     public final static int MOTOR2 = 1;
     public final static int MOTOR3 = 2;
     public final static int MOTOR4 = 3;
+    public final static int XBOX = 0;
 }

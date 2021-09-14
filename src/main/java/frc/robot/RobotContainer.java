@@ -25,6 +25,7 @@ public class RobotContainer {
   private final DriveTrain m_drivetrain = new DriveTrain();
   // Not sure if this can be a static object when we are instantiating the container in Robot.java
   public final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
+  public final static Joystick xboxController = new Joystick(Constants.XBOX);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 

@@ -8,20 +8,22 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
+/** Command that watches controllers and handles default drive functions */
 public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrain driveTrain;
+
+  private final DriveTrain m_driveTrain;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new DriveCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveTrain driveTrainSubsystem) {
-    driveTrain = driveTrainSubsystem;
+  public DriveCommand(DriveTrain p_driveTrain) {
+    // set the MEMBER "m_" variable equal to the PARAMETER var "p_"
+    m_driveTrain = p_driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveTrain);
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +33,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.driveTrain.arcadeDrive(RobotContainer.xboxController.getX(), -RobotContainer.xboxController.getY());
+    m_driveTrain.m_driveTrain.arcadeDrive(RobotContainer.xboxController.getX(), -RobotContainer.xboxController.getY());
   }
 
   // Called once the command ends or is interrupted.

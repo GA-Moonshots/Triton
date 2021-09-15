@@ -29,7 +29,7 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_TalonSRX m_leftMotor2;
     private final WPI_TalonSRX m_rightMotor1;
     private final WPI_TalonSRX m_rightMotor2;
-    public final DifferentialDrive driveTrain;
+    public final DifferentialDrive m_driveTrain;
   // group speed controllers
     SpeedControllerGroup m_left;
     SpeedControllerGroup m_right;
@@ -38,7 +38,11 @@ public class DriveTrain extends SubsystemBase {
     m_left = new SpeedControllerGroup(m_leftMotor1 = new WPI_TalonSRX(Constants.MOTOR1), m_leftMotor2 = new WPI_TalonSRX(Constants.MOTOR2));
     m_right = new SpeedControllerGroup(m_rightMotor1 = new WPI_TalonSRX(Constants.MOTOR3), m_rightMotor2 = new WPI_TalonSRX(Constants.MOTOR4));
 
-    driveTrain = new DifferentialDrive(m_right, m_left);
+    m_driveTrain = new DifferentialDrive(m_right, m_left);
+
+    // Let's name the sensors on the LiveWindow
+    addChild("Drive", driveTrain);
+    addChild("Gyro", m_gyro);
   }
 
   @Override

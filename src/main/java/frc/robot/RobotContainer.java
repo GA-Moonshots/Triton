@@ -21,19 +21,24 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  // these are private member variables (hence the "m_" and are not to be made static or public)
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
-  // Not sure if this can be a static object when we are instantiating the container in Robot.java
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+
+  // Static stuff hosted here for easy access 
   public final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
   public final static Joystick xboxController = new Joystick(Constants.XBOX);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
+    // SETTING DEFAULT COMMANDS
     m_drivetrain.setDefaultCommand(new DriveCommand(m_drivetrain));
 
   }

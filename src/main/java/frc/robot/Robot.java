@@ -18,7 +18,7 @@ import frc.robot.commands.DriveCommand;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  public RobotContainer m_robotContainer;
+  public RobotContainer roboBucket;
 
   /**
    * This function is run when the robot is first started up and should be used for any

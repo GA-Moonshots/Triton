@@ -7,11 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.TurnRight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,6 +33,7 @@ public class RobotContainer {
   // Static stuff hosted here for easy access 
   public final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
   public final static Joystick xboxController = new Joystick(Constants.XBOX);
+  public final static Button a = new JoystickButton(xboxController, 1);
 
   
 
@@ -50,7 +54,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    a.toggleWhenPressed(new TurnRight(m_drivetrain));
   }
 
   /**

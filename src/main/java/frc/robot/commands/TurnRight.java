@@ -7,11 +7,14 @@ package frc.robot.commands;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+
+import java.util.concurrent.TimeUnit;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 /** An example command that uses an example subsystem. */
 public class TurnRight extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrain m_driveTrain;
 
   /**
@@ -19,7 +22,8 @@ public class TurnRight extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TurnRight(DriveTrain p_driveTrain) {
+  public TurnRight(DriveTrain p_driveTrain, double requestedRotation) {
+    double target = p_driveTrain.m_gyro.getAngle() + requestedRotation;
     m_driveTrain = p_driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
@@ -27,12 +31,14 @@ public class TurnRight extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    execute();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.m_driveTrain.arcadeDrive(0, 0.5);
+    m_driveTrain.m_driveTrain.arcadeDrive(0.5, 0);
   }
 
   // Called once the command ends or is interrupted.

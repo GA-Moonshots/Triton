@@ -27,7 +27,7 @@ public class RobotContainer {
   // these are private member variables (hence the "m_" and are not to be made static or public)
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final TurnRight m_autoCommand = new TurnRight(m_drivetrain);
 
 
   // Static stuff hosted here for easy access 
@@ -54,7 +54,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    a.toggleWhenPressed(new TurnRight(m_drivetrain));
+    
   }
 
   /**

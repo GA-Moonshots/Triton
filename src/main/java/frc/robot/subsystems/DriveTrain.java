@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new Drive Subsystem. */
 
   // declare gyro
-    private final AnalogGyro m_gyro = new AnalogGyro(1);
+    public final AnalogGyro m_gyro = new AnalogGyro(1);
   // declare motors
 
   // TODO: instantiate and declare at same time https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/gearsbot/subsystems/DriveTrain.java
@@ -41,7 +42,7 @@ public class DriveTrain extends SubsystemBase {
     m_driveTrain = new DifferentialDrive(m_right, m_left);
 
     // Let's name the sensors on the LiveWindow
-    addChild("Drive", driveTrain);
+    addChild("Drive", m_driveTrain);
     addChild("Gyro", m_gyro);
   }
 

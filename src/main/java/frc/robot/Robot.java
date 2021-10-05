@@ -5,10 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveCommand;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.RelayCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +24,10 @@ public class Robot extends TimedRobot {
 
   public RobotContainer roboBucket;
 
+  public final static Joystick xboxController = new Joystick(Constants.XBOX);
+  public final static JoystickButton a = new JoystickButton(xboxController, 1);
+
+  private final static RelayCommand RelayCommand = new RelayCommand();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -84,9 +91,8 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {
-    
+  @Override public void teleopPeriodic() {
+    a.whenPressed(new RelayCommand());
   }
 
   @Override

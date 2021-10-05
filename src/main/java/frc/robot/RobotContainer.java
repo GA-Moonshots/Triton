@@ -27,7 +27,7 @@ public class RobotContainer {
   // these are private member variables (hence the "m_" and are not to be made static or public)
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
-  private final TurnRight m_autoCommand = new TurnRight(m_drivetrain);
+  private final TurnRight m_autoCommand = new TurnRight(m_drivetrain, 1);
 
 
   // Static stuff hosted here for easy access 

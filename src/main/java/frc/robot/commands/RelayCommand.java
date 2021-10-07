@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 /** An example command that uses an example subsystem. */
 public class RelayCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-public boolean isOn = false;
-private static DigitalOutput relay = new DigitalOutput(1);
-
+  public boolean isOn = false;
+  private static DigitalOutput relay = new DigitalOutput(1);
+  private boolean runOnce = false;
 
   /**
    * Creates a new ExampleCommand.
@@ -21,6 +21,7 @@ private static DigitalOutput relay = new DigitalOutput(1);
    * @param subsystem The subsystem used by this command.
    */
   public RelayCommand() {
+    runOnce = false;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,7 +34,7 @@ private static DigitalOutput relay = new DigitalOutput(1);
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (isOn == false) {
+    if (!isOn) {
       isOn = true;
       relay.set(true);
     }
@@ -41,6 +42,8 @@ private static DigitalOutput relay = new DigitalOutput(1);
       isOn = false;
       relay.set(false);
     }
+    // Set the toggle so this command only runs once
+    runOnce = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +53,6 @@ private static DigitalOutput relay = new DigitalOutput(1);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return runOnce;
   }
 }

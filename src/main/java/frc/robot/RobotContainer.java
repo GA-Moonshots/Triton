@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.TurnRight;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RelayCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,13 +29,10 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final TurnRight m_autoCommand = new TurnRight(m_drivetrain, 1);
-
+  private final Joystick m_xboxController = new Joystick(Constants.XBOX);
 
   // Static stuff hosted here for easy access 
   public final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
-  public final static Joystick xboxController = new Joystick(Constants.XBOX);
-  public final static Button a = new JoystickButton(xboxController, 1);
-
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,7 +52,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+    final JoystickButton a = new JoystickButton(m_xboxController, 1);
+    a.whenPressed(new RelayCommand());
   }
 
   /**

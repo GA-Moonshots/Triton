@@ -24,10 +24,8 @@ public class Robot extends TimedRobot {
 
   public RobotContainer roboBucket;
 
-  public final static Joystick xboxController = new Joystick(Constants.XBOX);
-  public final static JoystickButton a = new JoystickButton(xboxController, 1);
+ 
 
-  private final static RelayCommand RelayCommand = new RelayCommand();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -92,7 +90,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override public void teleopPeriodic() {
-    a.whenPressed(new RelayCommand());
+    
   }
 
   @Override

@@ -41,7 +41,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     // SETTING DEFAULT COMMANDS
-    m_drivetrain.setDefaultCommand(new DriveCommand(m_drivetrain));
+    m_drivetrain.setDefaultCommand(new DriveCommand(m_drivetrain, m_xboxController));
 
   }
 

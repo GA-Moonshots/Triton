@@ -13,15 +13,17 @@ public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private final DriveTrain m_driveTrain;
+  private final Joystick m_xboxController;
 
   /**
    * Creates a new DriveCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveTrain p_driveTrain) {
+  public DriveCommand(DriveTrain p_driveTrain, Joystick p_xbox) {
     // set the MEMBER "m_" variable equal to the PARAMETER var "p_"
     m_driveTrain = p_driveTrain;
+    m_xboxController = p_xbox;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -33,7 +35,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.m_driveTrain.arcadeDrive(RobotContainer.xboxController.getX(), -RobotContainer.xboxController.getY());
+    m_driveTrain.m_driveTrain.arcadeDrive(m_xboxController.getX(), -m_xboxController.getY());
   }
 
   // Called once the command ends or is interrupted.

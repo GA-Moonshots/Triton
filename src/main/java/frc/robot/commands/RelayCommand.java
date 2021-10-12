@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Timer;
 
 /** An example command that uses an example subsystem. */
 public class RelayCommand extends CommandBase {
@@ -14,6 +15,10 @@ public class RelayCommand extends CommandBase {
   public boolean isOn = false;
   private static DigitalOutput relay = new DigitalOutput(1);
   private boolean runOnce = false;
+  private double currentTime;
+  private Timer timer = new Timer();
+  private boolean keepRunning = true;
+  private double endTime;
 
   /**
    * Creates a new ExampleCommand.
@@ -35,15 +40,24 @@ public class RelayCommand extends CommandBase {
   @Override
   public void execute() {
     if (!isOn) {
+      currentTime = timer.getFPGATimestamp();
+      endTime = currentTime + 1;
       isOn = true;
       relay.set(true);
-    }
-    else {
+      while(keepRunning) {
+        if (timer.getFPGATimestamp() >= endTime) {
+          isOn = false;
+          relay.set(false);
+          keepRunning = false;
+          runOnce = true;
+        }
+      } 
+    } else {
       isOn = false;
       relay.set(false);
-    }
+      }
     // Set the toggle so this command only runs once
-    runOnce = true;
+    
   }
 
   // Called once the command ends or is interrupted.

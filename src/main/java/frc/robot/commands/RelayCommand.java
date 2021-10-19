@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.Timer;
 /** An example command that uses an example subsystem. */
 public class RelayCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  public boolean isOn = false;
+  public boolean isOn;
   private static DigitalOutput relay = new DigitalOutput(1);
-  private boolean runOnce = false;
+  private boolean runOnce;
   private double currentTime;
-  private Timer timer = new Timer();
-  private boolean keepRunning = true;
+  private Timer timer;
+  private boolean keepRunning;
   private double endTime;
 
   /**
@@ -26,14 +26,16 @@ public class RelayCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public RelayCommand() {
-    runOnce = false;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    isOn  = false;
+    timer = new Timer();
+    keepRunning = true;
+    runOnce = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,7 +43,7 @@ public class RelayCommand extends CommandBase {
   public void execute() {
     if (!isOn) {
       currentTime = timer.getFPGATimestamp();
-      endTime = currentTime + 1;
+      endTime = currentTime + 0.5;
       isOn = true;
       relay.set(true);
       while(keepRunning) {

@@ -53,7 +53,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton a = new JoystickButton(m_xboxController, 1);
+    final JoystickButton b = new JoystickButton(m_xboxController, 2);
     a.whenPressed(new RelayCommand());
+    b.whenPressed(new TurnRight(m_drivetrain, 90));
   }
 
   /**

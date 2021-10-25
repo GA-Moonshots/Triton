@@ -9,20 +9,21 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 /** An example command that uses an example subsystem. */
-public class TurnRight extends CommandBase {
+public class GyroTurn extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrain m_driveTrain;
 
   private int check;
   private double target;
   double requestedRotation;
+  public boolean isDone;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TurnRight(DriveTrain p_driveTrain, double requestedRotation) {
+  public GyroTurn(DriveTrain p_driveTrain, double requestedRotation) {
     this.requestedRotation = requestedRotation;
     m_driveTrain = p_driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,13 +35,15 @@ public class TurnRight extends CommandBase {
   public void initialize() {
     target = m_driveTrain.m_gyro.getAngle() + requestedRotation;
     check = 0;
+    isDone = false;
     execute();
   }
 
   public double power() {
     double MAX_POWER = 0.7; // cap the power 
-    double MIN_POWER = 0.45; // lowest effective power
+    double MIN_POWER = 0.35; // lowest effective power
     int ENOUGH_CHECKS = 15; // how many times do we pass our target until we're satisfied?
+    int MIN_ERROR = 1;
 
     // determine the error
     double error = target - m_driveTrain.m_gyro.getAngle();
@@ -52,26 +55,28 @@ public class TurnRight extends CommandBase {
 
     // are we there yet? this is to avoid ping-ponging
     // plus we never stop the method unless our output is zero
-    if(Math.abs(error) < 2) check++;
-    if(check > ENOUGH_CHECKS) return 0.0;
-
+    if(Math.abs(error) < MIN_ERROR) check++;
+    if(check > ENOUGH_CHECKS) {
+      isDone = true;
+      return 0.0;
+    }
     // determine the direction
     // if I was trying to go a positive angle change from the start
     if(requestedRotation > 0){
-      if(error > 0) return -output; // move in a positive direction
-      else return output; // compensate for over-turning by going a negative direction
+      if(error > 0) return output; // move in a positive direction
+        else return -output; // compensate for over-turning by going a negative direction
     }
-    // if I was trying to go a negative angle from the start
+     //if I was trying to go a negative angle from the start
     else{
-      if(error < 0) return output; // move in a negative direction as intended
-      else return -output; // compensate for over-turning by moving a positive direction
+      if(error < 0) return -output; // move in a negative direction as intended
+      else return output; // compensate for over-turning by moving a positive direction
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.m_driveTrain.arcadeDrive(0, power());
+    m_driveTrain.m_driveTrain.arcadeDrive(power(), 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -81,6 +86,6 @@ public class TurnRight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isDone;
   }
 }

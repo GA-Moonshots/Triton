@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.TurnRight;
+import frc.robot.commands.GyroTurn;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RelayCommand;
 import frc.robot.subsystems.DriveTrain;
@@ -28,7 +28,7 @@ public class RobotContainer {
   // these are private member variables (hence the "m_" and are not to be made static or public)
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
-  private final TurnRight m_autoCommand = new TurnRight(m_drivetrain, 1);
+  private final GyroTurn m_autoCommand = new GyroTurn(m_drivetrain, 1);
   private final Joystick m_xboxController = new Joystick(Constants.XBOX);
 
   // Static stuff hosted here for easy access 
@@ -54,8 +54,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     final JoystickButton a = new JoystickButton(m_xboxController, 1);
     final JoystickButton b = new JoystickButton(m_xboxController, 2);
+    final JoystickButton x = new JoystickButton(m_xboxController, 3);
+    final JoystickButton y = new JoystickButton(m_xboxController, 4);
     a.whenPressed(new RelayCommand());
-    b.whenPressed(new TurnRight(m_drivetrain, 90));
+    b.whenPressed(new GyroTurn(m_drivetrain, 90));
+    x.whenPressed(new GyroTurn(m_drivetrain, -90));
+    y.whenPressed(new GyroTurn(m_drivetrain, 45));
   }
 
   /**

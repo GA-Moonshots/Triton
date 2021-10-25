@@ -21,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new Drive Subsystem. */
 
   // declare gyro
-    public final AnalogGyro m_gyro = new AnalogGyro(1);
+    public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
   // declare motors
 
   // TODO: instantiate and declare at same time https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/gearsbot/subsystems/DriveTrain.java

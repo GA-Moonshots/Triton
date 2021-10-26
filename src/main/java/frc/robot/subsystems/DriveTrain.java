@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Ultrasonic;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import frc.robot.Constants;
 
@@ -23,6 +26,9 @@ public class DriveTrain extends SubsystemBase {
   // declare gyro
     public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
   // declare motors
+
+  //declare ultrasonic
+    public Rev2mDistanceSensor ultrasonic = new Rev2mDistanceSensor(Port.kMXP);
 
   // TODO: instantiate and declare at same time https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/gearsbot/subsystems/DriveTrain.java
 

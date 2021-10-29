@@ -62,7 +62,7 @@ public class RobotContainer {
     b.whenPressed(new GyroTurn(m_drivetrain, 90));
     x.whenPressed(new GyroTurn(m_drivetrain, -90));
     y.whenPressed(new GyroTurn(m_drivetrain, 45));
-    lBump.whenPressed(new DriveToWall(m_drivetrain));
+    lBump.whenPressed(new DriveToWall(m_drivetrain, 20));
   }
 
   /**

@@ -13,14 +13,16 @@ public class DriveToWall extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrain m_driveTrain;
   boolean isDone;
+  int theTargetDistance;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveToWall(DriveTrain p_driveTrain) {
+  public DriveToWall(DriveTrain p_driveTrain, int targetDistance) {
     m_driveTrain = p_driveTrain;
+    theTargetDistance = targetDistance;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -28,21 +30,42 @@ public class DriveToWall extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("started");
     m_driveTrain.ultrasonic.setAutomaticMode(true);
     isDone = false;
+    System.out.println("Start");
+  }
+
+  public double power() {
+    double MAX_POWER = 0.7; // cap the power 
+    double MIN_POWER = 0.35; // lowest effective power
+
+    // determine the error
+    double error = theTargetDistance - m_driveTrain.ultrasonic.getRange();
+
+    // determine the power output neutral of direction
+    double output = Math.abs(error / theTargetDistance) * MAX_POWER;
+    System.out.println("Getting output");
+    if(output < MIN_POWER) output = MIN_POWER;
+    if(output > MAX_POWER) output = MAX_POWER;
+
+    // are we there yet? this is to avoid ping-ponging
+    // plus we never stop the method unless our output is zero
+    if(error <= 0) {
+      isDone = true;
+      return 0.0;
+    } else {
+      System.out.println("Done");
+      return -output;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   if (m_driveTrain.ultrasonic.getRange() >= 10) {
+    System.out.println("Start of execute");
+   if (m_driveTrain.ultrasonic.getRange() >= 20) {
     System.out.println("Trying to drive");
-    m_driveTrain.m_driveTrain.arcadeDrive(0, -0.7);
-   } else {
-     System.out.println("Stop");
-    m_driveTrain.m_driveTrain.arcadeDrive(0, 0);
-    isDone = true;
+    m_driveTrain.m_driveTrain.arcadeDrive(0, power());
    }
   }
 

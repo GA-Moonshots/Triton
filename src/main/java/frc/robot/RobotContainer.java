@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroTurn;
 import frc.robot.commands.ExampleCommand;
@@ -29,7 +30,7 @@ public class RobotContainer {
   // these are private member variables (hence the "m_" and are not to be made static or public)
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain = new DriveTrain();
-  private final GyroTurn m_autoCommand = new GyroTurn(m_drivetrain, 1);
+  private final AutoCommand m_autoCommand = new AutoCommand(m_drivetrain);
   private final Joystick m_xboxController = new Joystick(Constants.XBOX);
 
   // Static stuff hosted here for easy access 

@@ -13,7 +13,7 @@ public class DriveToWall extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrain m_driveTrain;
   boolean isDone;
-  int theTargetDistance;
+  float theTargetDistance;
 
   /**
    * Creates a new ExampleCommand.
@@ -32,29 +32,26 @@ public class DriveToWall extends CommandBase {
   public void initialize() {
     m_driveTrain.ultrasonic.setAutomaticMode(true);
     isDone = false;
-    System.out.println("Start");
   }
 
   public double power() {
-    double MAX_POWER = 0.7; // cap the power 
-    double MIN_POWER = 0.35; // lowest effective power
+    double MAX_POWER = 0.6; // cap the power 
+    double MIN_POWER = 0.3; // lowest effective power
 
     // determine the error
     double error = theTargetDistance - m_driveTrain.ultrasonic.getRange();
 
     // determine the power output neutral of direction
-    double output = Math.abs(error / theTargetDistance) * MAX_POWER;
-    System.out.println("Getting output");
+    double output = Math.abs(error / theTargetDistance);
     if(output < MIN_POWER) output = MIN_POWER;
     if(output > MAX_POWER) output = MAX_POWER;
 
     // are we there yet? this is to avoid ping-ponging
     // plus we never stop the method unless our output is zero
-    if(error <= 0) {
+    if (error >= 0) {
       isDone = true;
       return 0.0;
     } else {
-      System.out.println("Done");
       return -output;
     }
   }
@@ -62,11 +59,11 @@ public class DriveToWall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Start of execute");
-   if (m_driveTrain.ultrasonic.getRange() >= 20) {
-    System.out.println("Trying to drive");
+    System.out.println(m_driveTrain.ultrasonic.getRange());
+   if (m_driveTrain.ultrasonic.getRange() >= theTargetDistance) {
     m_driveTrain.m_driveTrain.arcadeDrive(0, power());
    }
+   else isDone = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -76,6 +73,7 @@ public class DriveToWall extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println(m_driveTrain.ultrasonic.getRange());
     return isDone;
   }
 }

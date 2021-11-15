@@ -7,17 +7,19 @@ package frc.robot.commands;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.GyroTurn;
 
 /** An example command that uses an example subsystem. */
-public class AutoCommand extends CommandGroupBase {
+public class AutoCommand extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_driveTrain;
   private boolean isDone;
-
+  private SequentialCommandGroup commandGroup;
   /**
    * Creates a new ExampleCommand.
    *
@@ -25,6 +27,9 @@ public class AutoCommand extends CommandGroupBase {
    */
   public AutoCommand(DriveTrain p_driveTrain) {
     m_driveTrain = p_driveTrain;
+    commandGroup = new SequentialCommandGroup(new DriveForward(m_driveTrain, 2));
+    commandGroup.addCommands(new DriveForward(m_driveTrain, 2));
+    commandGroup.addCommands(new GyroTurn(m_driveTrain, 90));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -38,9 +43,9 @@ public class AutoCommand extends CommandGroupBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    CommandScheduler.getInstance().schedule(new DriveForward(m_driveTrain, 2));
-    CommandScheduler.getInstance().schedule(new GyroTurn(m_driveTrain, 90));
-    
+    // CommandScheduler.getInstance().schedule(new DriveForward(m_driveTrain, 2));
+    // CommandScheduler.getInstance().schedule(new GyroTurn(m_driveTrain, 90));
+    commandGroup.execute();
     isDone = true;
   }
 

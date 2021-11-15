@@ -26,6 +26,9 @@ public class DriveTrain extends SubsystemBase {
 
   // declare gyro
     public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+
+  // declare encoder
+    // private final Encoder encoder = new Encoder()
   // declare motors
 
   //declare ultrasonic

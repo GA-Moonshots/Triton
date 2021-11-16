@@ -24,12 +24,12 @@ public class AutoCommand extends SequentialCommandGroup {
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
-   */
+  */
   public AutoCommand(DriveTrain p_driveTrain) {
     m_driveTrain = p_driveTrain;
     commandGroup = new SequentialCommandGroup(new DriveForward(m_driveTrain, 2));
-    commandGroup.addCommands(new DriveForward(m_driveTrain, 2));
-    commandGroup.addCommands(new GyroTurn(m_driveTrain, 90));
+    //commandGroup.addCommands(new DriveForward(m_driveTrain, 2));
+    //commandGroup.addCommands(new GyroTurn(m_driveTrain, 90));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -37,7 +37,7 @@ public class AutoCommand extends SequentialCommandGroup {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    isDone = false;
+     isDone = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,8 +45,7 @@ public class AutoCommand extends SequentialCommandGroup {
   public void execute() {
     // CommandScheduler.getInstance().schedule(new DriveForward(m_driveTrain, 2));
     // CommandScheduler.getInstance().schedule(new GyroTurn(m_driveTrain, 90));
-    commandGroup.execute();
-    isDone = true;
+     isDone = true;
   }
 
   // Called once the command ends or is interrupted.

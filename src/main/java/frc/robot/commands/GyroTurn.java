@@ -36,7 +36,6 @@ public class GyroTurn extends CommandBase {
     target = m_driveTrain.m_gyro.getAngle() + requestedRotation;
     check = 0;
     isDone = false;
-    execute();
   }
 
   public double power() {
@@ -67,7 +66,7 @@ public class GyroTurn extends CommandBase {
         else return -output; // compensate for over-turning by going a negative direction
     }
      //if I was trying to go a negative angle from the start
-    else{
+    else {
       if(error < 0) return -output; // move in a negative direction as intended
       else return output; // compensate for over-turning by moving a positive direction
     }

@@ -12,6 +12,7 @@ import frc.robot.commands.GyroTurn;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RelayCommand;
 import frc.robot.commands.DriveToWall;
+import frc.robot.commands.EncoderCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -59,11 +60,13 @@ public class RobotContainer {
     final JoystickButton x = new JoystickButton(m_xboxController, 3);
     final JoystickButton y = new JoystickButton(m_xboxController, 4);
     final JoystickButton lBump = new JoystickButton(m_xboxController, 5);
+    final JoystickButton rBump = new JoystickButton(m_xboxController, 6);
     a.whenPressed(new RelayCommand());
     b.whenPressed(new GyroTurn(m_drivetrain, 90));
     x.whenPressed(new GyroTurn(m_drivetrain, -90));
     y.whenPressed(new GyroTurn(m_drivetrain, 45));
     lBump.whenPressed(new DriveToWall(m_drivetrain, 20));
+    rBump.whenPressed(new EncoderCommand(m_drivetrain, 12));
   }
 
   /**

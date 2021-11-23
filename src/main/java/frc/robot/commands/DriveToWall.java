@@ -59,7 +59,6 @@ public class DriveToWall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(m_driveTrain.ultrasonic.getRange());
    if (m_driveTrain.ultrasonic.getRange() >= theTargetDistance) {
     m_driveTrain.m_driveTrain.arcadeDrive(0, power());
    }
@@ -73,7 +72,6 @@ public class DriveToWall extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println(m_driveTrain.ultrasonic.getRange());
     return isDone;
   }
 }

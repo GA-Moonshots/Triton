@@ -23,4 +23,6 @@ public final class Constants {
     public final static int MOTOR3 = 2;
     public final static int MOTOR4 = 3;
 
+    public final static int ENCODER_COUNTS_PER_REV = 2048;
+
 }

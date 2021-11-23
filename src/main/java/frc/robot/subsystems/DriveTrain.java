@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import com.revrobotics.*;
@@ -28,7 +29,7 @@ public class DriveTrain extends SubsystemBase {
     public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
   // declare encoder
-    // private final Encoder encoder = new Encoder()
+    public final Encoder m_encoder = new Encoder(2, 3);
   // declare motors
 
   //declare ultrasonic

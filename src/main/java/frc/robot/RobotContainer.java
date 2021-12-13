@@ -35,7 +35,7 @@ public class RobotContainer {
   private final Joystick m_xboxController = new Joystick(Constants.XBOX);
 
   // Static stuff hosted here for easy access 
-  public final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
+  private final static Joystick bigJoystick = new Joystick(Constants.BIGBOI);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

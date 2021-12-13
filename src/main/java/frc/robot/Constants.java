@@ -23,6 +23,24 @@ public final class Constants {
     public final static int MOTOR3 = 2;
     public final static int MOTOR4 = 3;
 
+    // SENSOR PORTS
+    public final static int RELAY_PORT = 1;
+    public final static int ENCODER_PORT_1 = 2;
+    public final static int ENCODER_PORT_2 = 3;
+
+    // SPEEDS
+    public final static double ENCODER_SPEED = 0.3;
+    public final static double DRIVE_TO_WALL_MAX = 0.6;
+    public final static double DRIVE_TO_WALL_MIN = 0.3;
+    public final static double GYRO_TURN_MAX = 0.7;
+    public final static double GYRO_TURN_MIN = 0.35;
+    public final static double DRIVE_FOR_TIME_SPEED = 0.5;
+
+    // OTHER
     public final static int ENCODER_COUNTS_PER_REV = 2048;
+    public final static int WHEEL_DIAMETER = 6;
+    
+    // How much time the relay stays on
+    public final static double RELAY_STOP_TIME = 0.5;
 
 }

@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 /** An example command that uses an example subsystem. */
@@ -33,14 +34,15 @@ public class GyroTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Figure out how much where we want to turn to by adding how much we want to turn to the current angle of the robot
     target = m_driveTrain.m_gyro.getAngle() + requestedRotation;
     check = 0;
     isDone = false;
   }
 
   public double power() {
-    double MAX_POWER = 0.7; // cap the power 
-    double MIN_POWER = 0.35; // lowest effective power
+    double MAX_POWER = Constants.GYRO_TURN_MAX; // cap the power 
+    double MIN_POWER = Constants.GYRO_TURN_MIN; // lowest effective power
     int ENOUGH_CHECKS = 15; // how many times do we pass our target until we're satisfied?
     int MIN_ERROR = 1;
 

@@ -4,13 +4,14 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class DriveForward extends CommandBase {
+public class DriveForTime extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_driveTrain;
   private final double requestedTime;
@@ -25,7 +26,7 @@ public class DriveForward extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveForward(DriveTrain p_driveTrain, double requestedTime) {
+  public DriveForTime(DriveTrain p_driveTrain, double requestedTime) {
     m_driveTrain = p_driveTrain;
     this.requestedTime = requestedTime;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,11 +43,15 @@ public class DriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Get the current time
     currentTime = timer.getFPGATimestamp();
+    // Add the requested time to our current time so we can figure out when the robot should stop driving
     targetTime = currentTime + requestedTime;
+    // Drive forward until the robot stops
     while (timer.getFPGATimestamp() < targetTime) {
-      m_driveTrain.m_driveTrain.arcadeDrive(0, 0.5);
+      m_driveTrain.m_driveTrain.arcadeDrive(0, Constants.DRIVE_FOR_TIME_SPEED);
     }
+    // Turn off the motors
     m_driveTrain.m_driveTrain.arcadeDrive(0, 0);
     isDone = true;
   }

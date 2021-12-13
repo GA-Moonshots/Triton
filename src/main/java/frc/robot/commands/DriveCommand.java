@@ -36,6 +36,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Get the joystick x and y values and drive depending on that
     m_driveTrain.m_driveTrain.arcadeDrive(m_xboxController.getX(), -m_xboxController.getY());
   }
 

@@ -63,9 +63,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    // Get what command we run for autonomous
     m_autonomousCommand = roboBucket.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
+    // Schedule the autonomous command
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }

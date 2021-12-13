@@ -4,16 +4,18 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.ExampleSubsystem;
+import jdk.vm.ci.meta.Constant;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 
-/** An example command that uses an example subsystem. */
+/** An example command that uses an example subsystem */
 public class RelayCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   public boolean isOn;
-  private static DigitalOutput relay = new DigitalOutput(1);
+  private static DigitalOutput relay = new DigitalOutput(Constants.RELAY_PORT);
   private boolean runOnce;
   private double currentTime;
   private Timer timer;
@@ -42,11 +44,15 @@ public class RelayCommand extends CommandBase {
   @Override
   public void execute() {
     if (!isOn) {
+      // Get what time it is
       currentTime = timer.getFPGATimestamp();
-      endTime = currentTime + 0.5;
+      // Turn the relay off [RELAY_STOP_TIME] seconds after the current time
+      endTime = currentTime + Constants.RELAY_STOP_TIME;
       isOn = true;
+      // Turn the relay on
       relay.set(true);
       while(keepRunning) {
+        // Turn off the relay once we get to the end time
         if (timer.getFPGATimestamp() >= endTime) {
           isOn = false;
           relay.set(false);
@@ -56,10 +62,10 @@ public class RelayCommand extends CommandBase {
       } 
     } else {
       isOn = false;
+
+      // Turn off the relay at the end of the file in case something doesnt work
       relay.set(false);
       }
-    // Set the toggle so this command only runs once
-    
   }
 
   // Called once the command ends or is interrupted.

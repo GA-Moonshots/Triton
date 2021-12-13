@@ -25,14 +25,13 @@ import frc.robot.Constants;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new Drive Subsystem. */
 
-  // declare gyro
+  // Declare + instantiate gyro
     public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
-  // declare encoder
-    public final Encoder m_encoder = new Encoder(2, 3);
-  // declare motors
+  // Declare + instantiate encoder
+    public final Encoder m_encoder = new Encoder(Constants.ENCODER_PORT_1, Constants.ENCODER_PORT_2);
 
-  //declare ultrasonic
+  // Declare ultrasonic
     public Rev2mDistanceSensor ultrasonic = new Rev2mDistanceSensor(Port.kMXP);
 
   // TODO: instantiate and declare at same time https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/gearsbot/subsystems/DriveTrain.java
@@ -42,17 +41,20 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_TalonSRX m_rightMotor1;
     private final WPI_TalonSRX m_rightMotor2;
     public final DifferentialDrive m_driveTrain;
-  // group speed controllers
+
+  // Group speed controllers
     SpeedControllerGroup m_left;
     SpeedControllerGroup m_right;
+
   public DriveTrain() {
-    // instantiate differential drive
+    // Instantiate differential drive
     m_left = new SpeedControllerGroup(m_leftMotor1 = new WPI_TalonSRX(Constants.MOTOR1), m_leftMotor2 = new WPI_TalonSRX(Constants.MOTOR2));
     m_right = new SpeedControllerGroup(m_rightMotor1 = new WPI_TalonSRX(Constants.MOTOR3), m_rightMotor2 = new WPI_TalonSRX(Constants.MOTOR4));
 
     m_driveTrain = new DifferentialDrive(m_right, m_left);
 
-    // Let's name the sensors on the LiveWindow
+    // TODO: name the sensors on the LiveWindow
+
     addChild("Drive", m_driveTrain);
     addChild("Gyro", m_gyro);
   }

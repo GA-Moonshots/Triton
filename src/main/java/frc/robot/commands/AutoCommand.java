@@ -23,8 +23,9 @@ public class AutoCommand extends SequentialCommandGroup {
    * @param subsystem The subsystem used by this command.
   */
   public AutoCommand(DriveTrain driveTrain) {
+    // Add which commands you want to run in the order you want them to run
     addCommands(
-      new DriveForward(driveTrain, 2),
+      new DriveForTime(driveTrain, 2),
       new GyroTurn(driveTrain, 90)
     ); 
   }

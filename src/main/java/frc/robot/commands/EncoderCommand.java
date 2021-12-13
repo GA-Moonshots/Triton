@@ -10,6 +10,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.lang.Math.*;
 
+
 /** An example command that uses an example subsystem. */
 public class EncoderCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -25,8 +26,9 @@ public class EncoderCommand extends CommandBase {
    */
   public EncoderCommand(DriveTrain p_driveTrain, double requestedDistance) {
     m_driveTrain = p_driveTrain;
-    targetRotations = ((requestedDistance / (6 * Math.PI)));
-    //* Constants.ENCODER_COUNTS_PER_REV
+    // We calculate the rotations by multiplying how many inches we want to go by [pi]d which is the diamater of our wheels times pi
+    // We then multiply by a big number because thats just how the encoder works
+    targetRotations = ((requestedDistance / (Constants.WHEEL_DIAMETER * Math.PI))) * Constants.ENCODER_COUNTS_PER_REV;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(p_driveTrain);
   }
@@ -35,16 +37,18 @@ public class EncoderCommand extends CommandBase {
   @Override
   public void initialize() {
     isDone = false;
+    // Reset the encoder so that the current degree is 0
     m_driveTrain.m_encoder.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Drive forward until the wheel has turned for the requested number of rotations
     while (-m_driveTrain.m_encoder.get() < targetRotations) {
-      System.out.println(-m_driveTrain.m_encoder.get());
-      m_driveTrain.m_driveTrain.arcadeDrive(0, 0.3);
+      m_driveTrain.m_driveTrain.arcadeDrive(0, Constants.ENCODER_SPEED);
     }
+    // Turn off motors
     m_driveTrain.m_driveTrain.arcadeDrive(0, 0);
     isDone = true;
   }

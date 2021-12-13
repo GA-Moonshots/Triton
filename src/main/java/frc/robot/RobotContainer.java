@@ -55,12 +55,15 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    //define + instantiate buttons
     final JoystickButton a = new JoystickButton(m_xboxController, 1);
     final JoystickButton b = new JoystickButton(m_xboxController, 2);
     final JoystickButton x = new JoystickButton(m_xboxController, 3);
     final JoystickButton y = new JoystickButton(m_xboxController, 4);
     final JoystickButton lBump = new JoystickButton(m_xboxController, 5);
     final JoystickButton rBump = new JoystickButton(m_xboxController, 6);
+
+    //assign buttons to commands
     a.whenPressed(new RelayCommand());
     b.whenPressed(new GyroTurn(m_drivetrain, 90));
     x.whenPressed(new GyroTurn(m_drivetrain, -90));
